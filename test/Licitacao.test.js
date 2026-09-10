@@ -1,7 +1,8 @@
 const assert = require('assert');
-const ganache = require('ganache-cli');
-const Web3 = require('web3');
-const web3 = new Web3(ganache.provider({ gasLimit: '10000000' }));
+const ganache = require('ganache');
+const { Web3, FMT_NUMBER, FMT_BYTES } = require('web3');
+const web3 = new Web3(ganache.provider({ gasLimit: 10000000 }));
+web3.defaultReturnFormat = { number: FMT_NUMBER.STR, bytes: FMT_BYTES.HEX };
 
 const compiledFactory = require('../ethereum/build/LicitacaoFactory.json');
 const compiledLicitacao = require('../ethereum/build/Licitacao.json');
@@ -17,8 +18,14 @@ before(async() => {
         .deploy({ data: compiledFactory.evm.bytecode.object })
         .send({ from: accounts[0], gas: '10000000' });
 
-    const dataEntregaPropostas = Math.trunc((Date.now() - 60000) / 1000);
-    const dataAberturaPropostas = Math.trunc(new Date((dataEntregaPropostas + 80)).getTime());
+    // Datas em segundos (unix timestamp), como o contrato espera.
+    // dataEntregaPropostas já deve estar no passado (propor() exige isso) e
+    // dataAberturaPropostas deve ficar no futuro o suficiente para ainda
+    // "não ter chegado" durante o teste de proposta (que roda ~10s depois
+    // daqui) mas já ter passado no teste de abertura (que roda ~20s depois).
+    const agora = Math.trunc(Date.now() / 1000);
+    const dataEntregaPropostas = agora - 60;
+    const dataAberturaPropostas = agora + 15;
     const identificacao = '000';
     const processo = '102';
     const item = ["Vinicius", "Objeto: omaomsaom", "1"];

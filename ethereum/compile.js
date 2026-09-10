@@ -24,6 +24,12 @@ const input = {
     },
   },
   settings: {
+    // Fixa a EVM alvo em "shanghai" (a mais recente suportada pelo Ganache
+    // usado nos testes locais/rede de desenvolvimento). Sem isso, versões
+    // mais novas do solc usam por padrão uma EVM mais recente que o Ganache,
+    // gerando opcodes (ex: PUSH0/TLOAD/TSTORE) que ele não reconhece e
+    // fazendo qualquer chamada ao contrato reverter com "invalid opcode".
+    evmVersion: "shanghai",
     outputSelection: {
       "*": {
         "*": ["*"],
