@@ -5,8 +5,8 @@
  */
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-const Web3 = require('web3');
- 
+const { Web3 } = require('web3');
+
 const { abi, evm } = require('./build/LicitacaoFactory.json');
  
 provider = new HDWalletProvider(

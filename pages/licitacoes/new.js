@@ -1,12 +1,10 @@
 import React, { Component, useState } from 'react';
-import 'semantic-ui-css/semantic.min.css';
 import { Button, Card, Form, Input, Item, Icon } from 'semantic-ui-react';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
-import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import Layout from '../../components/Layout';
 import factory from '../../ethereum/factory';
 import web3 from '../../ethereum/web3';
-import { Router } from '../../routes';
+import Router from 'next/router';
 
 class NewLicitacao extends Component {
     state = {
@@ -46,7 +44,7 @@ class NewLicitacao extends Component {
 
             const address = await factory.methods.getLastLicitacao().call();
 
-            Router.pushRoute(`/licitacoes/${address}`);
+            Router.push(`/licitacoes/${address}`);
         } catch(err) {
                 console.error(err);
                 alert(err);
@@ -67,8 +65,8 @@ class NewLicitacao extends Component {
                 quantidade: ''
             }
         });
-        
-        Router.pushRoute('/licitacoes');
+
+        Router.push('/licitacoes');
     }
 
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
-import { Link } from '../routes';
+import Link from "next/link";
 
 class Header extends Component {
   state = { activeItem: 'home' };
@@ -14,8 +14,8 @@ class Header extends Component {
 
       return (
         <Menu style={{ marginTop: "10px" }} pointing secondary>
-        <Link route="/"><a className="item">BrasilChain</a></Link>
-        <Link route="/licitacoes"><a className="item">Licitações</a></Link>
+        <Link href="/" className="item">BrasilChain</Link>
+        <Link href="/licitacoes" className="item">Licitações</Link>
       </Menu>
     );
   }
