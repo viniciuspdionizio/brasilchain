@@ -12,9 +12,9 @@ class BrasilChainIndex extends Component {
                 <Card fluid>
                     <Card.Content header='Vinicius de Paiva Dionizio' />
                     <Card.Content description='
-                        Projeto cujo objetivo é servir como base de estudos da linguagem Solidity e a interação entre a rede blockchain de testes
-                         (mais propriamente Goerli Ethereum) e um processo licitatório. 
-                         Desenvolvido como parte prática e demonstrativa do trabalho de conclusão de curso do aluno Vinicius de Paiva Dionizio da Fundação Educacional do Município de Assis - FEMA.                      
+                        Projeto cujo objetivo é servir como base de estudos da linguagem Solidity e a interação entre a rede blockchain Ethereum
+                         (local ou testnet) e um processo licitatório.
+                         Desenvolvido como parte prática e demonstrativa do trabalho de conclusão de curso do aluno Vinicius de Paiva Dionizio da Fundação Educacional do Município de Assis - FEMA.
                     ' />
                     <Card.Content>
                         Para mais informações acesse: <a href="https://github.com/viniciuspdionizio/brasilchain" target="_blank">github.com/viniciuspdionizio/brasilchain</a>

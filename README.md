@@ -1,7 +1,7 @@
 ## BrasilChain
 ## Descrição do projeto
 ![Em Desenvolvimento](https://img.shields.io/badge/Status-Em%20desenvolvimento-yellowgreen "Em Desenvolvimento") ![Contributors](https://img.shields.io/github/contributors/viniciuspdionizio/brasilchain "Contributors")
-Projeto cujo objetivo é servir como base de estudos da linguagem Solidity e a interação entre a rede blockchain de testes (mais propriamente Goerli Ethereum) e um processo licitatório, desenvolvido como parte prática e demonstrativa do trabalho de conclusão de curso do aluno Vinicius de Paiva Dionizio da Fundação Educacional do Município de Assis - FEMA.
+Projeto cujo objetivo é servir como base de estudos da linguagem Solidity e a interação entre a rede blockchain Ethereum (local ou testnet) e um processo licitatório, desenvolvido como parte prática e demonstrativa do trabalho de conclusão de curso do aluno Vinicius de Paiva Dionizio da Fundação Educacional do Município de Assis - FEMA.
 <p align="center">
 <img src="https://www.fema.edu.br/images/logo.png" />
 </p>
@@ -10,8 +10,7 @@ Projeto cujo objetivo é servir como base de estudos da linguagem Solidity e a i
 
 ## Detalhes
 - Compilação manual dos contratos
-- Deploy na rede Goerli de forma manual
-  - Utilizando [Infura](http://infura.io "Infura"), chave já criada e mantida nos arquivos .js do projeto
+- Deploy manual, por padrão numa blockchain local (veja "Modo de usar"); rede pública (ex: Sepolia) é opcional e configurada via `.env.local`
 - Processo básico de uma licitação, em modalidade *Pregão* 
   - Escolha do vencedor do pregão é dado pelo menor valor proposto
   
@@ -48,7 +47,24 @@ Os demais foram utilizados para a interface e utilização do contrato, desenvol
 
 
 ## Modo de usar
-Após instalar o projeto usando `npm install`, execute `npm run dev` e aguarde a confirmação de "Pronto", após isso é só abrir no navegador o endereço localhost:3000 para começar a visualizar.
+
+> Testnets públicas (Goerli, e em breve Sepolia) vêm sendo desligadas, então o projeto roda por padrão numa blockchain **local**, sem depender de nenhuma rede pública.
+
+1. `npm install`
+2. `cp .env.local.example .env.local`
+3. Num terminal, suba a blockchain local: `npm run chain` (deixe rodando)
+4. Noutro terminal, publique o contrato: `npm run deploy`
+   - Copie o endereço impresso no console para `NEXT_PUBLIC_FACTORY_ADDRESS` no `.env.local`
+5. `npm run dev` e aguarde a confirmação de "Ready", depois abra `localhost:3000`
+
+Se preferir usar o MetaMask no navegador, ele deve estar apontando pra mesma rede onde o contrato foi publicado (por padrão, a rede local em `http://127.0.0.1:8545`).
+
+### Publicando numa rede pública (opcional)
+Para ter um link de demonstração público, é possível publicar numa testnet como a Sepolia em vez da rede local. Defina no `.env.local`:
+- `RPC_URL` e `NEXT_PUBLIC_RPC_URL`: URL do nó RPC (ex: via [Infura](https://infura.io))
+- `DEPLOYER_MNEMONIC`: mnemônico de uma carteira **só de teste**, nunca reaproveitada
+
+e rode `npm run deploy` normalmente. **Nunca** coloque essas informações direto no código-fonte — o projeto já teve uma seed phrase e uma chave Infura expostas dessa forma no histórico do git; se você reutilizou essa mesma seed em algum outro lugar, considere-a comprometida.
 
 ### Interface
 **Em /licitacoes:**

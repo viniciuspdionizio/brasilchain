@@ -3,6 +3,7 @@ import { Button, Card, Container, Dimmer, Icon, Input, Label, Loader, Modal } fr
 import Layout from "../../components/Layout";
 import Licitacao from "../../ethereum/licitacao";
 import web3 from "../../ethereum/web3";
+import { paraNumero } from "../../ethereum/format";
 
 class LicitacaoShow extends Component {
   state = { proposta: '', propostas: '0', vencedor: '', sending: false };
@@ -11,14 +12,14 @@ class LicitacaoShow extends Component {
     const contrato = Licitacao(props.query.address);
     const result = await contrato.methods.getInfo().call();
     const licitacao = {
-      dataPublicacao: result[0] * 1000,
-      dataEntregaPropostas: result[1] * 1000,
-      dataAberturaPropostas: result[2] * 1000,
+      dataPublicacao: paraNumero(result[0]) * 1000,
+      dataEntregaPropostas: paraNumero(result[1]) * 1000,
+      dataAberturaPropostas: paraNumero(result[2]) * 1000,
       orgao: result[3],
       identificacao: result[4],
       processo: result[5],
-      item: result[6],
-      propostas: result[7],
+      item: [result[6][0], result[6][1], paraNumero(result[6][2])],
+      propostas: paraNumero(result[7]),
       vencedor: result[8],
       address: props.query.address
     }
@@ -42,7 +43,7 @@ class LicitacaoShow extends Component {
       
       this.setState({ proposta: '' });
       const result = await contrato.methods.getInfo().call();
-      this.setState({ propostas: result[7] });
+      this.setState({ propostas: paraNumero(result[7]) });
     } catch(err) {
       alert(err);
       console.error(err);

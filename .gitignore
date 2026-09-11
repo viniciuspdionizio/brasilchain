@@ -1,2 +1,6 @@
 node_modules
 .next
+
+# Segredos locais (mnemônico, URLs de RPC próprias, endereço do deploy) —
+# nunca versionar. Use .env.local.example como modelo.
+.env*.local
