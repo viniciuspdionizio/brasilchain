@@ -18,11 +18,6 @@ class NewLicitacao extends Component {
         newItemComplemento: '',
         newItemQuantidade: ''
     }
-    
-    static async getInitialProps() {
-        return { };
-    }
-
 
     onSubmit = async (event) => {
         event.preventDefault();

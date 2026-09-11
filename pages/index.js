@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Card, Icon } from 'semantic-ui-react';
-import factory from '../ethereum/factory';
 import Layout from '../components/Layout';
 
 class BrasilChainIndex extends Component {
