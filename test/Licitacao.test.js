@@ -1,8 +1,7 @@
 const assert = require('assert');
 const ganache = require('ganache');
-const { Web3, FMT_NUMBER, FMT_BYTES } = require('web3');
+const { Web3 } = require('web3');
 const web3 = new Web3(ganache.provider({ gasLimit: 10000000 }));
-web3.defaultReturnFormat = { number: FMT_NUMBER.STR, bytes: FMT_BYTES.HEX };
 
 const compiledFactory = require('../ethereum/build/LicitacaoFactory.json');
 const compiledLicitacao = require('../ethereum/build/Licitacao.json');

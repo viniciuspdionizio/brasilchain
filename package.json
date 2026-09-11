@@ -7,7 +7,9 @@
     "test": "mocha --timeout 30000",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "chain": "ganache --wallet.deterministic --gasLimit 10000000",
+    "deploy": "node --env-file-if-exists=.env.local ethereum/deploy.js"
   },
   "author": "",
   "license": "ISC",
