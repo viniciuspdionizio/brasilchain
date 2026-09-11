@@ -39,7 +39,10 @@ class LicitacaoShow extends Component {
       
       const contrato = Licitacao(this.props.licitacao.address);
       console.log(`Enviando proposta de ${this.state.proposta} da conta ${accounts[0]}`);
-      await contrato.methods.propor(this.state.proposta).send({ from: accounts[0] });
+      // Sem gas explícito, a estimativa automática fica baixa demais pra
+      // essa chamada (grava um novo licitante no array) e a transação
+      // reverte sem motivo aparente por falta de gás.
+      await contrato.methods.propor(this.state.proposta).send({ from: accounts[0], gas: '10000000' });
       
       this.setState({ proposta: '' });
       const result = await contrato.methods.getInfo().call();
@@ -61,7 +64,7 @@ class LicitacaoShow extends Component {
       const accounts = await web3.eth.getAccounts();
       
       const contrato = Licitacao(this.props.licitacao.address);
-      await contrato.methods.abrirPropostas().send({ from: accounts[0] });
+      await contrato.methods.abrirPropostas().send({ from: accounts[0], gas: '10000000' });
       const vencedor = await contrato.methods.vencedor().call();
       
       this.setState({ vencedor });

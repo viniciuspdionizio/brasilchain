@@ -34,7 +34,12 @@ class NewLicitacao extends Component {
                 this.state.processo,
                 this.state.item
                 ).send({
-                    from: accounts[0]
+                    from: accounts[0],
+                    // Sem isso, a estimativa automática de gás fica baixa
+                    // demais pra essa chamada (que cria um contrato Licitacao
+                    // novo dentro do Factory) e a transação reverte sem
+                    // motivo aparente por falta de gás no meio da execução.
+                    gas: '10000000'
                 });
 
             const address = await factory.methods.getLastLicitacao().call();
